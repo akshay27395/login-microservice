@@ -12,6 +12,36 @@ var should = chai.should();
 chai.use(chaiHttp);
 
 //===============svr.login.js=============================================================
+
+/**
+ * @author:Akshay Misal
+ * @link:GET http://localhost:8082/api/authenticate
+ * @param {appName, username, password} req 
+ * @param {token} res 
+ * @description: authenticate user.
+ */
+describe('Authenticate user', () => {
+    it('it should authenticate user details', (done) => {
+
+        var data = {
+            "appName": "SCF",
+            "username": "buyer1234",
+            "password": "123"
+        }
+
+        chai.request(server)
+            .post('/api/authenticate')
+            .send(data)
+            .end((err, res) => {
+                res.should.be.json;
+                res.body.should.have.property('token');
+                res.should.have.status(200);
+                done();
+            });
+    });
+});
+
+
 /**
  * @author Akshay Misal
  * @link: POST http://localhost:8082/api/getUser
@@ -33,35 +63,6 @@ describe('Get user details', () => {
             .end((err, res) => {
                 res.should.be.json;
                 res.body.should.have.property('username');
-                res.should.have.status(200);
-                done();
-            });
-    });
-});
-
-
-/**
- * @author:Akshay Misal
- * @link:GET http://localhost:8082/api/authenticate
- * @param {appName, username, password} req 
- * @param {token} res 
- * @description: authenticate user.
- */
-describe('Authenticate user', () => {
-    it('it should authenticate user details', (done) => {
-
-        var data = {
-            "appName": "SCF",
-            "username": "Akshay MISAL",
-            "password": "123"
-        }
-
-        chai.request(server)
-            .post('/api/authenticate')
-            .send(data)
-            .end((err, res) => {
-                res.should.be.json;
-                res.body.should.have.property('token');
                 res.should.have.status(200);
                 done();
             });

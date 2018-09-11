@@ -42,7 +42,7 @@
                 ]
             }
         },
-        "/api/login": {
+        "/api/authenticate": {
             "post": {
                 "security": [
                     {
@@ -51,7 +51,7 @@
                         ]
                     }
                 ],
-                "summary": "Create a new Account",
+                "summary": "authenticate a user",
                 "responses": {
                     "201": {
                         "description": "Successfully created",
@@ -69,7 +69,7 @@
                             "$ref": "#/definitions/Login"
                         },
                         "required": true,
-                        "description":"Here you can create the new account.",
+                        "description":"Here you can authenticate a user.",
                         "name": "body",
                         "in": "body"
                     }
