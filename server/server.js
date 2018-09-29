@@ -46,12 +46,16 @@ app.use(function(err, req, res, next) {
 
 
 
-router.post('/authenticate', authenticateUser);          //authentication is done here (http://localhost:8082/api/authenticate)
-router.post('/getUser', getUser);          //authentication is done here (http://localhost:8082/api/authenticate)
+router.post('/login', authenticateUser);          //authentication is done here (http://localhost:8082/api/)
+router.get('/login', getUser);                   //authentication is done here (http://localhost:8082/api/)
+router.put('/login', changePW);                   //authentication is done here (http://localhost:8082/api/)
+router.post('/login/forgotPassword',forgotPW);  //authentication is done here (http://localhost:8082/login)
+router.put('/login/forgotPassword',forgotUpdatePW);   //authentication is done here (http://localhost:8082/login)
 
 module.exports = router;
 
 function authenticateUser(req, res) {
+    console.log("auth",req.query)
     userService.authenticate(req,res)
         .then(function (token) {
             if (token) {
@@ -69,7 +73,38 @@ function authenticateUser(req, res) {
 }
 
 function getUser(req, res) {
+    console.log("get ",req.query)
     userService.getUser(req,res)
+        .then(function (data) {                                 
+            res.send(data);
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
+
+function changePW(req, res) {
+    userService.changePW(req,res)
+        .then(function (data) {                                 
+            res.send(data);
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
+
+function forgotPW(req, res) {
+    userService.forgotPW(req,res)
+        .then(function (data) {                                 
+            res.send(data);
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
+
+function forgotUpdatePW(req, res) {
+    userService.forgotUpdatePW(req,res)
         .then(function (data) {                                 
             res.send(data);
         })
@@ -83,7 +118,7 @@ router.get('/', function (req, res) {                       //for testing the ap
 });
 
 //---------------------------REGISTER OUR ROUTES ---------------------------
-app.use('/api', router);                                    // all of our routes will be prefixed with /api
+app.use('', router);                                    // all of our routes will be prefixed with /api
 
 // ================= START THE SERVER=======================================
 var server = app.listen(port, function () {
