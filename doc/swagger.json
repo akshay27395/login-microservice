@@ -1,8 +1,8 @@
 {
     "info": {
-        "version": "V1.0",
-        "description": "## Authentication\n\nAuthenticate requests by including an Authorization header.  For example:\n\n```bash\ncurl 'http://localhost:8081/api/login' -H \"Authorization: Bearer <auth token>\"\n```\n\n## Generate Token\nTo retrieve an auth token, POST a username/password combination to /api/login.  For example:\n\n```bash\ncurl -X POST 'http://localhost:8081/api/login' -d \"username=USERNAME&password=PASSWORD\"\n```\n\n",
-        "title": "Login Microservice V0.1 API Docs"
+        "version": "v1.1",
+        "description": "",
+        "title": "Login Microservice v1.1 API Docs"
     },
     "paths": {
         "/login": {
@@ -190,17 +190,6 @@
     },
     "parameters": {},
     "tags": [],
-    "securityDefinitions": {
-        "oauth2": {
-            "flow": "authorizationCode",
-            "tokenUrl": "/o/token/",
-            "type": "oauth2",
-            "authorizationUrl": "/docs/oauth2/authorize",
-            "scopes": {
-                "r:Login": "List assertions in a User's Backpack"
-            }
-        }
-    },
     "definitions": {
         "Login": {
             "required": [],
