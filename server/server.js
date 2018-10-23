@@ -55,7 +55,6 @@ router.put('/login/forgotPassword',forgotUpdatePW);   //authentication is done h
 module.exports = router;
 
 function authenticateUser(req, res) {
-    console.log("auth",req.query)
     userService.authenticate(req,res)
         .then(function (token) {
             if (token) {
